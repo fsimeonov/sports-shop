@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../static/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../static/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../static/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="../static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/vendor/popper.js/dist/popper.min.js"></script>
+    <script src="https://checkout.stripe"></script>
+
+
+</head>
+<body>
+
+<div class="container">
+    <form action="/charge" method="post" id="checkout-form">
+
+        <input type="hidden" th:value="${amount*100}" name="amount"/>
+        <label>Name: <span th:text="${name}"/></label>
+        <label>Price: <span th:text="${amount}"/></label>
+
+        <script
+                src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                th:attr="data-key=${stripePublicKey}, data-amount=${amount*100},data-currency=${currency}"
+                data-name="EMT lab 3"
+                data-description="lab 3 emt course"
+                data-image="https://www.finki.ukim.mk/Content/dataImages/downloads/logo-large-500x500_2.png"
+                data-locale='auto'
+                data-zip-code='false'>
+        </script>
+
+    </form>
+</div>
+
+
+</body>
+</html>

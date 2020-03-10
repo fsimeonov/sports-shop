@@ -1,0 +1,20 @@
+POST http://localhost:8080/rest/products/add
+Content-Type: application/json
+
+{"name":"Name for test","description":"Description test","pictureLink":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1ZeIGkw9EVj7BQ1yWlb2_nlde5E65sws3qT5t0TxDpw7g3qTx","price":1000.0}
+
+###
+
+POST http://localhost:8080/rest/category/add
+Content-Type: application/json
+
+{"name":"Soccer jersey2"}
+
+###
+
+POST http://localhost:8080/rest/manufacturer/add
+Content-Type: application/json
+
+{"name":"Nike"}
+
+###

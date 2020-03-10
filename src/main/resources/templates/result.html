@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../static/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../static/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../static/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="../static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/vendor/popper.js/dist/popper.min.js"></script>
+
+</head>
+<body>
+
+<h3 th:if="${error}" th:text="${error}" style="color: red"></h3>
+
+<div th:unless="${error}">
+
+    <h3 style="color: green">Success</h3>
+    <div>ID: <span th:text="${id}"/></div>
+    <div>Status: <span th:text="${status}" /></div>
+    <div>Charge ID: <span th:text="chargeId" /></div>
+    <div>Balance Transaction: <span th:text="${balanceTransaction}" /></div>
+</div>
+
+</body>
+</html>

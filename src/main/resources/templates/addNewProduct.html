@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sport Shop</title>
+
+    <link rel="stylesheet" href="/static/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/static/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/static/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="/static/vendor/popper.js/dist/popper.min.js"></script>
+    <script src="/static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <form id="form" class="form" method="post" action="http://localhost:8080/product">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="name" id="name" class="form-control" name="name" placeholder="Enter name">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="description" name="description" id="description" class="form-control" placeholder="Enter description">
+            </div>
+
+            <div class="form-group">
+                <label for="pictureLink">Picture link</label>
+                <input type="pictureLink" name="pictureLink" id="pictureLink" class="form-control" placeholder="Enter picture link">
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option th:each="category: ${categoryList}" th:value="${category.name}" th:text="${category.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="manufacturer">Manufacturer</label>
+                <select id="manufacturer" name="manufacturer">
+                    <option th:each="manufacturer: ${manufacturerList}" th:value="${manufacturer.name}" th:text="${manufacturer.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price: </label>
+                <input id="price" type="price" name="price" class="form-control" placeholder="Enter price">
+            </div>
+
+            <h1 id="errorDiv" style="display: none" class="text-danger">Please enter all informations!!!</h1>
+
+            <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+
+</main>
+
+</body>
+
+<script>
+        var submitBtn=document.getElementById('submit');
+        submitBtn.addEventListener('click',function(event){
+        var name = document.getElementById('name');
+        var description = document.getElementById('description');
+        var imageLink = document.getElementById('pictureLink');
+        var category=document.getElementById('category');
+        var manufacturer=document.getElementById('manufacturer');
+       // var forma=document.getElementById('form');
+        if(name.value===''||description.value===''
+            ||imageLink.value===''||category.value===''
+            ||manufacturer.value===''){
+            event.preventDefault();
+            document.getElementById('errorDiv').style.display = "block";
+        }
+    });
+</script>
+
+
+
+</html>
