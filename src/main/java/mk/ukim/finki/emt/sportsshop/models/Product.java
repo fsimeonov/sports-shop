@@ -16,13 +16,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "productName")
+    @Column(name = "product_name")
     private String name;
 
-    @Column(name = "productDescription")
+    @Column(name = "product_description")
     private String description;
 
-    @Column(name = "pictureLink")
+    @Column(name = "picture_link")
     private String pictureLink;
 
     @Column(name = "price")

@@ -37,6 +37,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product addNewProduct(Long id, String name, String description,int price) {
+        Product p = new Product();
+        p.setId(id);
+        p.setName(name);
+        p.setDescription(description);
+        p.setPrice(price);
+        repository.save(p);
+        return p;
+
+    }
+
+    @Override
     public Manufacturer addNewManufacturer(Manufacturer manufacturer) {
         return null;
     }

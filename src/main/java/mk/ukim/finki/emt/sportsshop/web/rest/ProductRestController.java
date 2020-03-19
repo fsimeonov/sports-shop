@@ -8,7 +8,6 @@ import mk.ukim.finki.emt.sportsshop.models.exceptions.CategoryNotFoundException;
 import mk.ukim.finki.emt.sportsshop.models.exceptions.ManufacturerNotFoundException;
 import mk.ukim.finki.emt.sportsshop.models.exceptions.ProductNotFoundException;
 import mk.ukim.finki.emt.sportsshop.service.ProductService;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class ProductRestController {
 
 
     @GetMapping("/products")
-    public List<Product> getAllProducts(Model model){
+    public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
@@ -63,7 +62,7 @@ public class ProductRestController {
 
         productService.getAllProducts().stream()
                 .filter(i->i.getCategory().getId().equals(catId)).findFirst()
-                .orElseThrow(() -> new CategoryNotFoundException());
+                .orElseThrow(CategoryNotFoundException::new);
 
         return productService.findByCategory(catId);
 
@@ -75,11 +74,11 @@ public class ProductRestController {
 
         productService.getAllProducts().stream()
                 .filter(i -> i.getCategory().getId().equals(categoryId)).findFirst()
-                .orElseThrow(() -> new CategoryNotFoundException());
+                .orElseThrow(CategoryNotFoundException::new);
 
         productService.getAllProducts().stream()
                 .filter(i -> i.getManufacturer().getId().equals(manId)).findFirst()
-                .orElseThrow(() -> new ManufacturerNotFoundException());
+                .orElseThrow(ManufacturerNotFoundException::new);
 
         return productService.findByCategoryAndManufacturer(categoryId,manId);
 
@@ -90,7 +89,7 @@ public class ProductRestController {
     public Double ShowSum(@PathVariable("categoryId") Long id){
         productService.getAllProducts().stream()
                 .filter(i -> i.getCategory().getId().equals(id)).findFirst()
-                .orElseThrow(() -> new CategoryNotFoundException());
+                .orElseThrow(CategoryNotFoundException::new);
 
         return productService.getSum(id);
     }

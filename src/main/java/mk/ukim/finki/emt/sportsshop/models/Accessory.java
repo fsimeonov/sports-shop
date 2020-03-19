@@ -11,7 +11,7 @@ public class Accessory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "accessoryName")
+    @Column(name = "accessory_name")
     private String name;
 
     @Column(name = "description",length = 1000)

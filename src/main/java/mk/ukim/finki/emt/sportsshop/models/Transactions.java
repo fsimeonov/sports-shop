@@ -16,10 +16,10 @@ public class Transactions {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "chargeId")
+    @Column(name = "charge_id")
     private String chargeId;
 
-    @Column(name = "balanceTransaction")
+    @Column(name = "balance_transaction")
     private String balanceTransaction;
 
 

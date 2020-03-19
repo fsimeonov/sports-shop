@@ -12,7 +12,7 @@ public class Manufacturer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "manufacturerName")
+    @Column(name = "manufacturer_name")
     private String name;
 
     @OneToMany(mappedBy = "manufacturer",fetch = FetchType.LAZY,cascade = CascadeType.ALL)

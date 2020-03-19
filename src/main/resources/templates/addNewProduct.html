@@ -14,7 +14,11 @@
 
 <main>
     <div class="container">
-        <form id="form" class="form" method="post" action="http://localhost:8080/product">
+        <form id="form" class="form" method="post" action="http://localhost:9090/products">
+            <div class="form-group">
+                <label for="name">Id</label>
+                <input type="id" id="id" class="form-control" name="id" placeholder="Enter id (up from 2)">
+            </div>
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="name" id="name" class="form-control" name="name" placeholder="Enter name">
@@ -68,7 +72,6 @@
         var imageLink = document.getElementById('pictureLink');
         var category=document.getElementById('category');
         var manufacturer=document.getElementById('manufacturer');
-       // var forma=document.getElementById('form');
         if(name.value===''||description.value===''
             ||imageLink.value===''||category.value===''
             ||manufacturer.value===''){

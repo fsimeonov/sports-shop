@@ -12,6 +12,7 @@ public interface ProductService {
     List<Product> getAllProducts();
     Product getProductById(Long productId);
     Product addNewProduct(Product product);
+    Product addNewProduct(Long id, String name, String description, int price);
     Manufacturer addNewManufacturer(Manufacturer manufacturer);
     Category addNewCategory(Category category);
     List<Product> findByCategory(Long categoryId);

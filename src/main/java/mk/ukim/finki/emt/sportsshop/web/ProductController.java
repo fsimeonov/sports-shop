@@ -7,12 +7,10 @@ import mk.ukim.finki.emt.sportsshop.models.exceptions.CategoryNotFoundException;
 import mk.ukim.finki.emt.sportsshop.models.exceptions.ManufacturerNotFoundException;
 import mk.ukim.finki.emt.sportsshop.models.exceptions.ProductNotFoundException;
 import mk.ukim.finki.emt.sportsshop.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
@@ -30,37 +28,38 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public String products(Model model){
+    public String products(Model model) {
         model.addAttribute("productList", productService.getAllProducts());
-        model.addAttribute("manufacturers",productService.getAllManufacturers());
-        model.addAttribute("categories",productService.getAllCategories());
-        model.addAttribute("product",new Product());
+        model.addAttribute("manufacturers", productService.getAllManufacturers());
+        model.addAttribute("categories", productService.getAllCategories());
+        model.addAttribute("product", new Product());
         return "products";
     }
 
 
     @GetMapping("/products/add")
-    public String addProduct(Model model){
-        model.addAttribute("categoryList",productService.getAllCategories());
-        model.addAttribute("manufacturerList",productService.getAllManufacturers());
-        model.addAttribute("productList",productService.getAllProducts());
-        model.addAttribute("product",new Product());
+    public String addProduct(Model model) {
+        model.addAttribute("categoryList", productService.getAllCategories());
+        model.addAttribute("manufacturerList", productService.getAllManufacturers());
+        model.addAttribute("productList", productService.getAllProducts());
+        model.addAttribute("product", new Product());
         return "addNewProduct";
     }
 
     @ExceptionHandler({ProductNotFoundException.class})
     @GetMapping("products/{id}")
-    public String getProductDataById(@PathVariable("id")Long id, Model model) throws Exception {
+    public String getProductDataById(@PathVariable("id") Long id, Model model) {
 
-        Product product=productService.getAllProducts().stream()
-                .filter(i->i.getId() == id).findFirst().orElseThrow(()-> new ProductNotFoundException());
-        model.addAttribute("product",product);
+        Product product = productService.getAllProducts().stream()
+                .filter(i -> i.getId().equals(id)).findFirst().orElseThrow(ProductNotFoundException::new);
+        model.addAttribute("product", product);
         return "product-info";
     }
 
     @ExceptionHandler({ManufacturerNotFoundException.class, CategoryNotFoundException.class})
-    @PostMapping("/product")
-    public void addProduct(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    @PostMapping("/products")
+    public String addProduct(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+        String id = request.getParameter("id");
         String name = request.getParameter("name"); //test name
         String description = request.getParameter("description"); //test desc
         String manufacturer = request.getParameter("manufacturer"); //nike
@@ -68,18 +67,19 @@ public class ProductController {
         String pictureLink = request.getParameter("pictureLink");
         int price = Integer.parseInt(request.getParameter("price")); //111
 
-        Optional<Manufacturer> man=productService.getAllManufacturers().stream()
-                .filter(i->i.getName().equals(manufacturer)).findAny();
-        if(!man.isPresent()){
+        Optional<Manufacturer> man = productService.getAllManufacturers().stream()
+                .filter(i -> i.getName().equals(manufacturer)).findAny();
+        if (!man.isPresent()) {
             throw new ManufacturerNotFoundException();
         }
-        Optional<Category> cat=productService.getAllCategories().stream()
-                .filter(i->i.getName().equals(category)).findAny();
-        if(!cat.isPresent()){
+        Optional<Category> cat = productService.getAllCategories().stream()
+                .filter(i -> i.getName().equals(category)).findAny();
+        if (!cat.isPresent()) {
             throw new CategoryNotFoundException();
         }
 
-        Product p=new Product();
+        Product p = new Product();
+        p.setId(Long.parseLong(id));
         p.setPictureLink(pictureLink);
         p.setName(name);
         p.setDescription(description);
@@ -88,9 +88,10 @@ public class ProductController {
         p.setPrice(price);
 
         productService.addNewProduct(p);
-        model.addAttribute("productList",productService.getAllProducts());
-
-        response.sendRedirect("http://localhost:9090/products");
+        //productService.addNewProduct(Long.parseLong(id),name,description,price);
+       // model.addAttribute("productList", productService.getAllProducts());
+        return "redirect:/products/";
+        // response.sendRedirect("http://localhost:9090/products");
     }
 
 }

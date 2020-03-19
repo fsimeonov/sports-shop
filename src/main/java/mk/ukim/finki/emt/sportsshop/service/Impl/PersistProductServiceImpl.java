@@ -45,6 +45,11 @@ public class PersistProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product addNewProduct(Long id, String name, String description, int price) {
+        return null;
+    }
+
+    @Override
     public Manufacturer addNewManufacturer(Manufacturer manufacturer) {
         return manufacturerRepository.save(manufacturer);
     }
